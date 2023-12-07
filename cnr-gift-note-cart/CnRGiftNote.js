@@ -9,15 +9,24 @@ class CnRGiftNote {
 			button_text_empty:"Add Note",
 			button_text_set:"Update",
 			button_text_updating:"Updating Note...",
+            checkbox_label_text:"Add A Note",
 			cart_url:"/cart.json",
-			extended_cart_url:"/cart?view=json"
-			extended_cart:false
+			extended_cart_url:"/cart?view=json",
+			extended_cart:false,
+          
 		};
 		this.config = {...defaults,...opts};
 		document.addEventListener("CartUpdated",(event)=>{
 			this.cart = event.detail;
 			this.render();
 		});
+        let style = document.createElement("style");
+        style.innerHTML = `
+          .d-none: {
+            display:none!important;
+          }
+        `;
+      document.querySelector("head").appendChild(style);
 	}
 	getCart(cart=null) {
 		if (cart!=null) {
@@ -39,7 +48,7 @@ class CnRGiftNote {
 
 	}
 	updateCart(payload) {
-	    msgButton.innerHTML = "Updating..."
+	    document.querySelector(`${this.config.target} .js-add-upd-note`).innerHTML = "Updating..."
 	    fetch(`/cart/update.js`, {
 	      method: 'POST',
 	      credentials: 'same-origin',
@@ -68,23 +77,22 @@ class CnRGiftNote {
 	 		 <div class="gift-note-wrapper">
                 <div class="gift-note-cb">
                   <input type="checkbox" name="gift" value="1" class="js-has-gift" id="gift-note"${this.hasGift()?' checked':''}>
-                  <label for="gift-note">Add A Note</label>
+                  <label for="gift-note">${this.config.checkbox_label_text}</label>
                 </div>
-                <div class="js-gift-message ${cart.attributes.gift?'':'d-none'}">
+                <div class="js-gift-message ${this.hasGift()?'':'d-none'}">
                   <div>
-                  	<textarea rows="4" style="width:100%" name="message_text" class="js-message-text">
-                  	${this.giftText()}
-                  	</textarea>
+                  	<textarea rows="4" style="width:100%" name="message_text" class="js-message-text">${this.giftText()}                  	</textarea>
                   </div>
+                  <div><a class="js-add-upd-note button cta">${this.hasGift()?this.config.button_text_set:this.config.button_text_empty}</a></div>
                 </div>
-                  <div><button class="js-add-upd-note button cta">${this.hasGift()?this.config.button_text_set:this.config.button_text_empty}</button></div>
 	 	`;
 
 	 	injection_point.querySelector(".js-add-upd-note").addEventListener("click",event=>{
-		    
+		    event.stopPropagation();
+            event.preventDefault();
 		    this.cart.attributes["gift"] = true;
 		    this.cart.attributes["Gift Note"] = injection_point.querySelector(".js-message-text").value;
-		    this.updateCart({attributes:attributes});
+		    this.updateCart({attributes:this.cart.attributes});
 	  	});
 	  	injection_point.querySelector(".js-has-gift").addEventListener("click",event=>{
 		    if (event.target.checked) {

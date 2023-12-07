@@ -9,15 +9,15 @@ class CnRShippingMotivator {
 			target:".cnr-shipping-motivator-holder",
 			shipping_threshold:100,
 			shipping_text:"You're $##amount## away from Free Shipping!",
-			shipping_reached_text:"You've unlocked free shipping!",
+			shipping_met_text:"You've unlocked free shipping!",
 			gwp_enabled:false,
 			gwp_threshold:150,
 			gwp_text:"You're $##amount## away from a free gift",
 			gwp_met_text:"You've unlocked free shipping and a free gift!",
-			gwp_indicator_text:"Free gift"
+			gwp_indicator_text:"Free gift",
 			shipping_indicator_text:"Free Shipping",
 			cart_total:0,
-			item_applicable_amount:(item)=>return (item.quantity*item.discounted_price),
+			item_applicable_amount:(item)=>item.quantity*item.discounted_price,
 		};
 		this.config = {...defaults,...opts};
 		this.shortfall = this.config.threshold;
@@ -31,17 +31,20 @@ class CnRShippingMotivator {
 		});
 	}
 	motivatorText() {
-		return ((this.mode=="shipping"?)this.config.shipping_text:this.config.gwp_text).replace("##amount##",this.shortfall);
+		return ((this.mode=="shipping")?this.config.shipping_text:this.config.gwp_text).replace("##amount##",this.shortfall.toFixed(2));
 	} 
 	goalMetText() {
 		return (this.mode=="shipping")?this.config.shipping_met_text:this.config.gwp_met_text;
 	}
 	indicatorText() {
-		return (this.mode=="shipping")?this.config.shipping_indicator:this.config.gwp_indicator;
+		return (this.mode=="shipping")?this.config.shipping_indicator_text:this.config.gwp_indicator_text;
 	}
 	calculate() {
-			this.cart_total = (this.cart.items.reduce((sum,item)=>sum+this.config.item_applicable_amount(item))/100,0).toFixed(2);
-			this.shortfall = this.config.threshold - this.cart_total;
+			this.cart_total = this.cart.items.reduce(
+              (sum,item)=>sum+(this.config.item_applicable_amount(item)/100),
+              0
+            );
+			this.shortfall = this.config.shipping_threshold - this.cart_total;
 			if (this.shortfall<=0) {
 				if (this.config.gwp_enabled) {
 					this.mode="gwp";
@@ -51,7 +54,7 @@ class CnRShippingMotivator {
 						this.perc = 100;
 						this.goal_met = true;
 					} else {
-							this.perc = ((this.cart_total/this.threshold)*100).toFixed(2);
+							this.perc = (this.cart_total/this.config.gwp_threshold)*100;
 							this.goal_met = false;
 					}
 
@@ -63,8 +66,9 @@ class CnRShippingMotivator {
 				}
 				
 			} else {
+                this.goal_met = false;
 				this.mode="shipping";
-				this.perc = ((this.cart_total/this.threshold)*100).toFixed(2);
+				this.perc = (this.cart_total/this.config.shipping_threshold)*100;
 			}
 	}
 	render() {
@@ -72,20 +76,22 @@ class CnRShippingMotivator {
 	 	if (!injection_point) {
 	 		console.error(`Injection target ${this.config.target} does not exist`);
 	 	}
+        this.calculate();
+        console.error(this);
 	 	injection_point.childNodes.forEach(node=>injection_point.removeChild(node));
 	 	injection_point.innerHTML = `
-	 		<div class="go-cart-shipping--message js-go-cart-shipping--message">
-     		<div class="go-cart-shipping-full js-go-cart-shipping-full${this.goal_met:'':' d-none'}"><strong>${this.goalMetText()}</strong></div>
-     		<div class="go-cart-shipping-start js-go-cart-shipping-start${this.goal_met?' d-none':''}">
+	 		<div class="cnr-sm-shipping--message js-cnr-sm-shipping--message">
+     		<div class="cnr-sm-shipping-full js-cnr-sm-shipping-full${this.goal_met?'':' d-none'}"><strong>${this.goalMetText()}</strong></div>
+     		<div class="cnr-sm-shipping-start js-cnr-sm-shipping-start${this.goal_met?' d-none':''}">
      			${this.motivatorText()}
       	</div>
       </div>
-      <div class="go-cart-shipping--meter js-go-cart-shipping--meter${this.goal_met?' d-none':''}">
-      	<div class="go-cart-shipping--meter-fill js-go-cart-shipping--meter-fill" style="width: ${this.perc}%;"></div>
+      <div class="cnr-sm-shipping--meter js-cnr-sm-shipping--meter${this.goal_met?' d-none':''}">
+      	<div class="cnr-sm-shipping--meter-fill js-cnr-sm-shipping--meter-fill" style="width: ${this.perc}%;"></div>
       </div>
-      <div class="go-cart-benefits-bar columns-1 js-go-cart-benefits-bar">
-   	  	<div class="go-cart-benefits-item go-cart-benefit-freeshipping">
-    	  	<div class="go-cart-benefits-bar-point"></div>
+      <div class="cnr-sm-benefits-bar columns-1 js-cnr-sm-benefits-bar">
+   	  	<div class="cnr-sm-benefits-item cnr-sm-benefit-freeshipping">
+    	  	<div class="cnr-sm-benefits-bar-point"></div>
      			<span>${this.indicatorText()}</span>
     	  </div>
       </div>

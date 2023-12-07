@@ -1,0 +1,29 @@
+
+.js-add-upd-note{
+    text-decoration: none;
+    text-align: center;
+    white-space: normal;
+    font-family: var(--buttonFont);
+    font-size: var(--buttonSize);
+    font-weight: var(--buttonWeight);
+    text-transform: var(--button-uppercase);
+    line-height: 1.38;
+    letter-spacing: .04em;
+    display: inline-block;
+    padding: 11px 20px;
+    margin: 0;
+     width: 100%;
+    min-width: 90px;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: var(--buttonRadius);
+    color: var(--colorBtnPrimaryText);
+    background: var(--colorBtnPrimary);
+    transition: none;
+}
