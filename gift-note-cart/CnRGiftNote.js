@@ -88,7 +88,7 @@ class CnRGiftNote {
 	  	});
 	  	injection_point.querySelector(".js-has-gift").addEventListener("click",event=>{
 		    if (event.target.checked) {
-		    	injection_point.querySelector(".js-gift-message").classList.remove("d-none");
+		    	injection_point.querySelector(".js-gift-message").classList.remove("d-none")
 		    } else {
 		    	let newAttributes = {};
 			    Object.keys(this.cart.attributes).forEach(k=>{
