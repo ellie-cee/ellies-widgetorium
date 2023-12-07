@@ -4,30 +4,17 @@
 class CnRGiftNote {
 	constructor(opts={}) {
 		let defaults = {
-			context:"sidecart",
-			target:".cnr-giftnote-holder",
-			button_text_empty:"Add Note",
-			button_text_set:"Update",
-			button_text_updating:"Updating Note...",
-            checkbox_label_text:"Add A Note",
-			cart_url:"/cart.json",
-			extended_cart_url:"/cart?view=json",
-			extended_cart:false,
-          
+			target:".cnr-sidecart-rebuy-holder",          
 		};
+		this.rebuy_content = []
 		this.config = {...defaults,...opts};
+		document.addEventListener("CartFetched",event=>{
+			this.inhale();
+		})
 		document.addEventListener("CartUpdated",(event)=>{
-			this.cart = event.detail;
-			this.render();
+			this.exhale();
 		});
-        let style = document.createElement("style");
-        style.innerHTML = `
-          .d-none: {
-            display:none!important;
-          }
-        `;
-      document.querySelector("head").appendChild(style);
-	}
+ 	}
 	getCart(cart=null) {
 		if (cart!=null) {
 			this.cart = cart;
@@ -81,7 +68,7 @@ class CnRGiftNote {
                 </div>
                 <div class="js-gift-message ${this.hasGift()?'':'d-none'}">
                   <div>
-                  	<textarea rows="4" style="width:100%" name="message_text" class="js-message-text">${this.giftText()}                  	</textarea>
+                  	<textarea rows="4" style="width:100%" name="message_text" class="js-message-text">${this.giftText()}</textarea>
                   </div>
                   <div><a class="js-add-upd-note button cta">${this.hasGift()?this.config.button_text_set:this.config.button_text_empty}</a></div>
                 </div>

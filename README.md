@@ -13,3 +13,5 @@ Defer UI updates until a thrird-party widget/what-have-you has fully loaded
 recharge-centric PDP updates
 # cnr-upgrade-to-subsceription
 Upgrade to subscriptions in the sidecart
+# cnr-rebuy-jail
+Preserve Rebuy widget content in sidebar in areas that would otherwise be overwritten
