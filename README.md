@@ -15,3 +15,5 @@ recharge-centric PDP updates
 Upgrade to subscriptions in the sidecart
 # cnr-rebuy-jail
 Preserve Rebuy widget content in sidebar in areas that would otherwise be overwritten
+# cnr-variant-picker
+Code related to option-based variant pickers in foreword 3
