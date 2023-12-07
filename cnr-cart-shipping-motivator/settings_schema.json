@@ -3,48 +3,48 @@
         "content": "Cart Motivator"
       },
       {
-        "type":"checkbox",
-        "id":"motivator_enabled",
-        "label":"Enable Cart Motivator"
+        "type": "checkbox",
+        "id": "motivator_enabled",
+        "label": "Enable Cart Motivator"
       },
       {
-        "type":"number",
-        "id":"motivator_shipping_threshold",
-        "label":"Amount to trigger",
-        "default":0
+        "type": "number",
+        "id": "motivator_shipping_threshold",
+        "label": "Amount to trigger",
+        "default": 0
       },
       {
-        "type":"text",
-        "id":"motivator_shipping_text",
-        "label":"Text to show under threshold",
-        "default":"You're $##amount## away from Free Shipping!"
+        "type": "text",
+        "id": "motivator_shipping_text",
+        "label": "Text to show under threshold",
+        "default": "You're $##amount## away from Free Shipping!"
       },
       {
-        "type":"text",
-        "id":"motivator_shipping_met_text",
-        "label":"Threshold met text",
-        "default":"You've unlocked free shipping!"
+        "type": "text",
+        "id": "motivator_shipping_met_text",
+        "label": "Threshold met text",
+        "default": "You've unlocked free shipping!"
       },
       {
-        "type":"checkbox",
-        "id":"motivator_gwp_enabled",
-        "label":"Enable GWP Motivator"
+        "type": "checkbox",
+        "id": "motivator_gwp_enabled",
+        "label": "Enable GWP Motivator"
       },
       {
-        "type":"number",
-        "id":"motivator_gwp_threshold",
-        "label":"Amount to trigger GWP",
-        "default":0
+        "type": "number",
+        "id": "motivator_gwp_threshold",
+        "label": "Amount to trigger GWP",
+        "default": 0
       },
       {
-        "type":"text",
-        "id":"motivator_gwp_text",
-        "label":"Text to show under GWP threshold",
-        "default":"You're $##amount## away from free shipping + a free gift!"
+        "type": "text",
+        "id": "motivator_gwp_text",
+        "label": "Text to show under GWP threshold",
+        "default": "You're $##amount## away from free shipping + a free gift!"
       },
       {
-        "type":"text",
-        "id":"motivator__met_text",
-        "label":"GWP Threshold met text",
-        "default":"You've unlocked free shipping!"
+        "type": "text",
+        "id": "motivator_gwp_met_text",
+        "label": "GWP Threshold met text",
+        "default": "You've unlocked free shipping + a free gift!"
       }

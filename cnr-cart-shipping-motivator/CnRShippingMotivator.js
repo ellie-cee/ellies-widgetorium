@@ -72,12 +72,13 @@ class CnRShippingMotivator {
 			}
 	}
 	render() {
+
 	 	let injection_point = document.querySelector(this.config.target);
 	 	if (!injection_point) {
 	 		console.error(`Injection target ${this.config.target} does not exist`);
 	 	}
         this.calculate();
-        console.error(this);
+    
 	 	injection_point.childNodes.forEach(node=>injection_point.removeChild(node));
 	 	injection_point.innerHTML = `
 	 		<div class="cnr-sm-shipping--message js-cnr-sm-shipping--message">
