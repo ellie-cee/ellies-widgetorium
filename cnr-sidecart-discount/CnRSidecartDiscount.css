@@ -13,20 +13,33 @@
     letter-spacing: .04px;
     text-align: center;
     text-transform: uppercase;
-    border-radius: 10rem;
+    border-radius: 8px;
     border: 1px solid transparent;
     transition: .2s all ease-in-out;
 }
 .cnr-sc-discount-code-input {
-    width: 60%;
+    width: 70%;
+}
+.cnr-sc-discount-code-button:hover,.cnr-sc-discount-code-button.active {
+
+    background-color: var(--color-primary-button-bg);
+    border-color: var(--color-primary-button-border);
+
+}
+.cnr-sc-discount-code-input::placeholder {
+    opacity:0.60;
+  font-style:italic;
+  text-transform:smaller
 }
 .cnr-sc-discount-code-button {
     text-transform: uppercase;
+    cursor:pointer;
 }
 .cnr-sc-discount-code-wrapper {
     display:flex;
     flex-direction: row;
     gap: 12px;
     background-color: #F2ECE5;
+    margin-bottom:8px;
 
 }

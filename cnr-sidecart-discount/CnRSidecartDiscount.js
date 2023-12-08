@@ -5,6 +5,7 @@ class CnRSidecartDiscount {
 	constructor(opts={}) {
 		let defaults = {
 			target:".cnr-sidecart-discount-code-holder",
+            placeholder_text:"Type Discount Code here",
             button_text:"Apply"          
 		};
 		this.rebuy_content = []
@@ -34,7 +35,7 @@ class CnRSidecartDiscount {
 
 	}
 	updateCart(payload) {
-	    document.querySelector(`${this.config.target} .js-add-upd-note`).innerHTML = "Updating..."
+	    document.querySelector(`${this.config.target} .cnr-sc-discount-code-button`).innerHTML = "Applying..."
 	    fetch(`/cart/update.js`, {
 	      method: 'POST',
 	      credentials: 'same-origin',
@@ -61,7 +62,7 @@ class CnRSidecartDiscount {
 	 	injection_point.childNodes.forEach(node=>injection_point.removeChild(node));
 	 	injection_point.innerHTML = `
 	 		 <div class="cnr-sc-discount-code-wrapper">
-                <input type="text" name="discount-code" class="cnr-sc-discount-code-input" placeholder="Discount Code" value="${this.discountCode()}">
+                <input type="text" name="discount-code" class="cnr-sc-discount-code-input" placeholder="${this.config.placeholder_text}" value="${this.getDiscountCode()}">
                 <a class="cnr-sc-discount-code-button">${this.config.button_text}</a>
             </div>
 	 	`;
@@ -69,16 +70,28 @@ class CnRSidecartDiscount {
 	 	injection_point.querySelector(".cnr-sc-discount-code-button").addEventListener("click",event=>{
 		    event.stopPropagation();
             event.preventDefault();
-		    
+		    let button = document.querySelector(`${this.config.target} .cnr-sc-discount-code-button`);
+            button.classList.add("active");
+            button.innerHTML = "Applying...";
+            window.setTimeout(()=>{
+              button.classList.remove("active");
+              button.innerHTML = this.config.button_text;
+            },1000);
+
 		    this.cart.attributes["_discount_code"] = injection_point.querySelector(".cnr-sc-discount-code-input").value;
-            window.fetch(`/discount/${this.cart.attributes['_discount_code']}`).then(response=>{
-                console.error(response);
-                return response.text();
-            })
-                .then(text=>{
-                    this.updateCart({attributes:this.cart.attributes});        
-                })
-		    this.updateCart({attributes:this.cart.attributes});
+            window.fetch(`/discount/${this.cart.attributes['_discount_code']}`)
+              .then(response=>response.text())
+              .then(text=>{
+                    console.error(this.getDiscountCode());
+                });
 	  	});
-	 }	  
+	 }
+    getDiscountCode() {
+      return document.cookie.split(";")
+        .map(cookieString=>cookieString.trim().split("="))
+        .reduce(
+            (acc,curr)=>{acc[curr[0]] = curr[1];return acc;},
+          {}
+        )["discount_code"]||"";
+    }
   }
