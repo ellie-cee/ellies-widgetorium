@@ -17,3 +17,5 @@ Upgrade to subscriptions in the sidecart
 Preserve Rebuy widget content in sidebar in areas that would otherwise be overwritten
 # cnr-variant-picker
 Code related to option-based variant pickers in foreword 3
+# cnr-sidecar-discount
+Widget to apply discount code from sidecart

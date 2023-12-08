@@ -1,0 +1,32 @@
+.cnr-sc-discount-code-button, .cnr-sc-discount-code-input {
+    color: #c6c6c6;
+    background-color: #fff;
+    width: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5rem;
+    font-family: var(--primary-font-black);
+    font-weight: 900;
+    font-size: 1.6rem;
+    line-height: 1;
+    letter-spacing: .04px;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 10rem;
+    border: 1px solid transparent;
+    transition: .2s all ease-in-out;
+}
+.cnr-sc-discount-code-input {
+    width: 60%;
+}
+.cnr-sc-discount-code-button {
+    text-transform: uppercase;
+}
+.cnr-sc-discount-code-wrapper {
+    display:flex;
+    flex-direction: row;
+    gap: 12px;
+    background-color: #F2ECE5;
+
+}

@@ -4,15 +4,19 @@
 class CnRGiftNote {
 	constructor(opts={}) {
 		let defaults = {
-			target:".cnr-sidecart-rebuy-holder",          
+			context:"sidecart",
+			target:".cnr-giftnote-holder",
+			button_text_empty:"Add Note",
+			button_text_set:"Update",
+			button_text_updating:"Updating Note...",
+            checkbox_label_text:"Add A Note",
+			extended_cart:false,
 		};
 		this.rebuy_content = []
 		this.config = {...defaults,...opts};
-		document.addEventListener("CartFetched",event=>{
-			this.inhale();
-		})
 		document.addEventListener("CartUpdated",(event)=>{
-			this.exhale();
+			this.cart = event.detail;
+			this.render();
 		});
  	}
 	getCart(cart=null) {
@@ -21,8 +25,8 @@ class CnRGiftNote {
 			this.render();
 			return;
 		}
-		fetch("/cart.js")
-			.then(res=>(this.config.extended_cart)?res.text():res.json())
+		fetch((this.config.extended_cart)?"/cart?view=json":"/cart.js")
+			.then((this.config.extended_cart)?res.text():res.json())
 			.then(cart=>{
 				if (this.config.extended_cart) {
 					eval(cart);
