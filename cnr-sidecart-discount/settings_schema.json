@@ -1,0 +1,21 @@
+{
+    "type":"header",
+    "content":"Discount Code"
+  },
+  {
+    "type":"checkbox",
+    "id":"sidecart_enable_discount_code",
+    "label":"Enable Sidecart Discount Code"
+  },
+  {
+    "type":"text",
+    "id":"sidecart_discount_code_button_text",
+    "label":"Button Text",
+    "default":"Apply"
+  },
+  {
+    "type":"text",
+    "id":"sidecart_discount_code_placeholder_text",
+    "label":"Input placeholder text",
+    "info":"This text shows when the field is empty"
+  }
