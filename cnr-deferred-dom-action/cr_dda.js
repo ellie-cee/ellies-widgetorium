@@ -1,6 +1,6 @@
 /* 2022 Chelsea and Rachel Co. chelseaandrachel.com */
 
-class CRDeferredDOMAction {
+class CnRDeferredDOMAction {
     constructor(condition,callback,attempts=50,timeout=500) {
         this.condition = condition;
         this.callback = callback;
